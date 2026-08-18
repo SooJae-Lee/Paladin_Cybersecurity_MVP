@@ -26,3 +26,11 @@ Completed core infrastructure, mock tools, injection channels, and integration t
   Control / Treatment 통합 테스트 지원
 
 ## Project Structure
+
+```text
+Paladin_Cybersecurity_MVP/
+├── agent/          # Agent core, logger, runner
+├── tools/          # Tool base system + mock tools
+├── injection/      # Injection channels + library
+├── tests/          # Integration tests
+└── logs/           # Execution logs
