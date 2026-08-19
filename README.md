@@ -47,3 +47,25 @@ Paladin_Cybersecurity_MVP/
 ├── data/            # Batch results + labeled dataset
 ├── tests/           # Integration tests
 └── demo.py          # End-to-end demo
+
+How to Run
+# Integration test
+python -m tests.test_integration
+
+# Batch experiment
+python -m experiments.batch_runner
+
+# Labeling
+python -m experiments.labeler
+
+# Detector evaluation
+python -m detector.evaluate
+
+# Full demo
+python demo.py
+
+
+Results (current synthetic dataset)
+
+Labels: hijacking 8 / simple_error 10 / no_effect 18
+Detector: Precision 1.0 / Recall 1.0 / F1 1.0
