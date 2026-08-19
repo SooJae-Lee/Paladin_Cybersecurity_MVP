@@ -31,20 +31,30 @@ class ScenarioRunner:
     ) -> Dict[str, Any]:
         """
         시나리오 한 번 실행
+        - system_message 채널: system prompt에 주입
+        - tool_output 채널: Agent.call_tool 시 결과에 주입
         """
         run_id = self.create_run_id(scenario_id)
         logger = AgentLogger(run_id=run_id, log_dir=self.log_dir)
 
+        base_prompt = system_prompt or "You are a helpful assistant."
+
+        # system_message 채널 주입
+        if injection_config and injection_config.get("channel") == "system_message":
+            payload = injection_config.get("payload", "")
+            base_prompt = base_prompt + f"\n\n[SYSTEM INJECTION]\n{payload}"
+
         agent = Agent(
             registry=self.registry,
-            system_prompt=system_prompt or "You are a helpful assistant.",
+            system_prompt=base_prompt,
             logger=logger,
+            injection_config=injection_config,
         )
 
         if injection_config:
             logger.log("injection", injection_config)
 
-        final_response = agent.run(user_message)
+        final_response = agent.run(user_message, scenario_id=scenario_id)
 
         log_path = logger.save()
 
