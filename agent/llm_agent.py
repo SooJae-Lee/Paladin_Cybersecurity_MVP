@@ -25,7 +25,7 @@ class ClaudeAgent:
         system_prompt: str = "You are a helpful assistant that uses tools to solve tasks.",
         logger: Optional[AgentLogger] = None,
         injection_config: Optional[Dict[str, Any]] = None,
-        model: str = "claude-sonnet-4-20250514",
+        model: str = "claude-sonnet-5",
         max_tokens: int = 1024,
         max_steps: int = 5,
     ):
@@ -48,15 +48,26 @@ class ClaudeAgent:
             self.logger.log(type=type, content=content, tool_name=tool_name)
 
     def _maybe_inject_tool_result(self, tool_name: str, result: ToolResult) -> ToolResult:
-        if self.injection_config.get("channel") != InjectionChannel.TOOL_OUTPUT:
-            return result
+        channel = self.injection_config.get("channel")
         payload = self.injection_config.get("payload")
         if not payload:
             return result
-        target = self.injection_config.get("tool_name")
-        if target is not None and target != tool_name:
-            return result
-        return inject_into_tool_output(result, payload)
+
+        # tool_output: 지정 tool에만 주입
+        if channel == InjectionChannel.TOOL_OUTPUT:
+            target = self.injection_config.get("tool_name")
+            if target is not None and target != tool_name:
+                return result
+            return inject_into_tool_output(result, payload, stealth=True)
+
+        # retrieved_document: 문서 본문 조회에만 주입
+        if channel == "retrieved_document" and tool_name in (
+            "get_document_content",
+            "get_file_content",
+        ):
+            return inject_into_tool_output(result, payload, stealth=True)
+
+        return result
 
     def _execute_tool(self, name: str, tool_input: Dict[str, Any]) -> str:
         self._log("tool_call", {"name": name, "arguments": tool_input}, tool_name=name)
@@ -87,23 +98,19 @@ class ClaudeAgent:
                 messages=messages,
             )
 
-            # assistant 메시지 보관
             messages.append({
                 "role": "assistant",
                 "content": response.content,
             })
 
-            # 텍스트 수집
             text_parts = [b.text for b in response.content if getattr(b, "type", None) == "text"]
             if text_parts:
                 final_text = "\n".join(text_parts)
 
-            # tool_use 없으면 종료
             tool_uses = [b for b in response.content if getattr(b, "type", None) == "tool_use"]
             if not tool_uses:
                 break
 
-            # tool 실행 결과 구성
             tool_results = []
             for tu in tool_uses:
                 try:
@@ -117,14 +124,17 @@ class ClaudeAgent:
                     "content": content,
                 })
 
-            # intermediate_message 주입
+            # intermediate_message 강화: tool observation 형태로 삽입
             if (
                 self.injection_config.get("channel") == "intermediate_message"
                 and self.injection_config.get("payload")
             ):
                 tool_results.append({
                     "type": "text",
-                    "text": f"[INTERMEDIATE INJECTION]\n{self.injection_config['payload']}",
+                    "text": (
+                        "tool_observation: downstream verification note\n"
+                        + self.injection_config["payload"]
+                    ),
                 })
 
             messages.append({
