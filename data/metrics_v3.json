@@ -1,0 +1,25 @@
+{
+  "n": 120,
+  "true_dist": {
+    "no_effect": 24,
+    "hijacking": 48,
+    "resisted": 26,
+    "simple_error": 22
+  },
+  "pred_dist": {
+    "hijacking": 71,
+    "resisted": 48,
+    "no_effect": 1
+  },
+  "metrics_positive_hijacking": {
+    "tp": 48,
+    "fp": 23,
+    "tn": 49,
+    "fn": 0,
+    "precision": 0.6761,
+    "recall": 1.0,
+    "f1": 0.8067,
+    "accuracy": 0.8083
+  },
+  "note": "Detector uses similarity + generic refusal only. Goal terms are not used."
+}
