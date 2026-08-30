@@ -164,3 +164,22 @@ Same factual payload is adopted in Korean tool/document answers and often refuse
 자동 키워드 라벨은 영어 성공을 과장했다.
 영어는 페이로드를 인용한 뒤 거절하는 경우가 많았다.
 한글 tool/document는 심판 기준 10/10으로 주입을 사실로 채택했다.
+
+## Channel rates (LLM-as-judge, n=10)
+
+Do not use the earlier keyword-label percentages as the main result.
+
+| Language | Channel | Hijacking | Rate |
+|---|---|---:|---:|
+| ko | tool_output | 10/10 | 100% |
+| ko | retrieved_document | 10/10 | 100% |
+| ko | system_message | 0/10 | 0% |
+| ko | intermediate_message | 0/10 | 0% |
+| en | tool_output | 0/10 | 0% |
+| en | retrieved_document | 0/10 | 0% |
+| en | system_message | 0/10 | 0% |
+| en | intermediate_message | 0/10 | 0% |
+
+Keyword-label vs judge-label agreement: 39/80.
+
+한글 tool/document만 성공하고, 영어와 system/intermediate는 이 파일럿에서 실패했다.
