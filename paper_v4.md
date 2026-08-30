@@ -119,3 +119,24 @@ The intermediate-message gap (Claude 0% vs GPT-4o-mini 80%) is an observation fr
 한글 Claude에서 tool/document는 80%, system은 0%였다.
 영어 Claude에서 tool 60%, document 70%, system/intermediate는 0%였다.
 GPT-4o-mini는 intermediate에서 80%가 나와 Claude와 달랐다. n=5라서 확정하지 않는다.
+
+## Related Work
+
+Prompt injection is the parent problem.
+Perez and Ribeiro (2022) showed that an LLM can be told to ignore previous instructions.
+Greshake et al. (2023) showed indirect prompt injection: the attack sits in retrieved webpages or documents, not in the user prompt.
+Later work studied LLM-integrated applications and tool-using agents, including InjecAgent and AgentDojo.
+
+This paper is narrower.
+We do not claim a new attack family.
+We measure how often a tool-calling agent follows a factual rewrite that arrives through different channels: tool output, retrieved document, system message, and intermediate message.
+The practical difference is the delivery path, not the existence of injection.
+
+Closest prior work evaluates agents with tools, but often mixes explicit jailbreak-style commands with application tasks.
+Our pilot isolates one goal, risk erasure in a document-summary task, and compares channels and two models under the same payload family.
+
+Detection work includes rule filters, similarity checks, and classifiers over conversation traces.
+Our detector is a baseline only.
+A 24-case human audit found 45.8% agreement with automatic labels, so detector scores computed on those labels are not a main claim.
+
+차별점: 새로운 공격 이름을 만들기보다, 같은 사실형 페이로드가 채널과 모델에 따라 얼마나 먹히는지를 잰다.

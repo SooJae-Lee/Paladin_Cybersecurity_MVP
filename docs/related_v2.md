@@ -1,13 +1,13 @@
-﻿# Related Work (v2)
+﻿# References (draft)
 
-| Work | What it measures | Difference from this paper |
-|---|---|---|
-| Greshake et al. / indirect PI | Instructions hidden in retrieved content | We fix one goal and vary channel |
-| Zhan et al., InjecAgent (ACL Findings 2024) | 1,054 IPI cases, harm vs exfil on tool agents | Broader tools; we isolate channel/framing on one summary task |
-| Debenedetti et al., AgentDojo (NeurIPS 2024) | Dynamic tool tasks + utility under attack | We do not score utility of a full office agent |
-| BIPIA / ASB | Broader IPI and agent-security suites | Different threat taxonomy; not our contribution |
-| OWASP LLM01 | Industry ranking of prompt injection | Not a measurement paper |
-| MCP / GitHub-MCP case studies | Real protocol incidents | Out of scope for this mock-tool study |
-| Framing-gap work on tool agents (2026) | Overt vs reframed exfil | Closest in spirit; we measure summary hijack by channel |
+Perez, F., & Ribeiro, I. (2022). Ignore Previous Prompt: Attack Techniques For Language Models.
 
-Position: a measurement note on channel and framing, not a new benchmark or a production detector.
+Greshake, K., et al. (2023). Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection.
+
+Zhan, Q., et al. (2024). InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents.
+
+Debenedetti, E., et al. (2024). AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents.
+
+Wallace, E., et al. (2024). The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions.
+
+OWASP. Top 10 for Large Language Model Applications.
