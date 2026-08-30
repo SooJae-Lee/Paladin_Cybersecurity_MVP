@@ -1,22 +1,45 @@
-﻿# Go / No-Go (Week 8)
+﻿# Go / No-Go
 
-Venue: ACM ASIACCS 2027 Cycle 2, deadline 11 Dec 2026 AoE.
-CFP extra: Open Science appendix, double-blind anonymization. Desk reject if names leak.
+Date: 2026-08-30
+Target: AsiaCCS 2027 Cycle 2 (deadline 2026-12-11 AoE)
 
-## Go to Cycle 2 only if all are true
-- [ ] paper_v4 contains the real tables (no TBD)
-- [ ] detector is described as lexical n-gram similarity, never "embedding"
-- [ ] limitations state partial independence and label-particle bug
-- [ ] 24-case label audit exists with an error rate
-- [ ] ethics + open-science appendix exist
-- [ ] anonymous PDF has no SooJae / Paladin_Cybersecurity_MVP personal URL
-- [ ] if claiming a vendor difference on intermediate_message, that cell is n>=20
+## Decision
+Conditional No-Go for a detection paper.
+Conditional Go for a small measurement paper.
 
-## Otherwise
-Submit a workshop / post a preprint, or wait for the n=20 Korean 2-vendor table.
-Do not send n=5 vendor ranking to ASIACCS as a main claim.
+## What exists
+- Real Claude tool-calling agent
+- Four injection channels
+- Korean and English n=10 channel pilots
+- Two-model n=5 comparison (Claude vs GPT-4o-mini)
+- Paraphrase test n=10
+- 24-case human label audit
+- paper_v4.md draft
 
-## Decision now (2026-08-30)
-LEAN NO-GO for ASIACCS as a full paper this week.
-Reason: audit 24 not done; vendor cell n=5; paper_v4 just drafted.
-Path: keep writing; decide again after audit + optional n=20 fill.
+## What is too weak for a full conference claim
+- Automatic labeler agreement with humans: 11/24 (45.8%)
+- Detector F1 0.807 is on automatic labels, not human gold
+- Tools are mocks, not live MCP
+- n=5 model comparison cannot support a model-difference claim
+- No adaptive attacker beyond light paraphrase
+
+## If we submit a measurement paper
+Allowed claims:
+- Factual tool/document poisoning can change a summary
+- Explicit system commands are weaker on Claude in this setup
+- Automatic labels are unreliable without human review
+
+Forbidden claims:
+- F1=1.0
+- A finished detector
+- Statistically confirmed language or model effects
+
+## Conditions to upgrade to Go
+1. Human-label at least 80 more cases, or all n=10 Korean+English trials
+2. Report confidence intervals, not point percentages only
+3. Keep detection as an appendix baseline
+4. Remove any circular use of goal keywords in the detector
+5. Anonymize the artifact before Cycle 2
+
+## Fallback
+If the conditions are not met by late October, submit a workshop paper or keep the draft internal.
