@@ -29,3 +29,28 @@ Control-Treatment 유사도, injection flag, 키워드, payload 반영 여부를
 24건 사람 검수에서 자동 라벨 일치율이 45.8%였기 때문이다.
 현재 탐지기는 완성된 방법이 아니라 베이스라인이다.
 다음 버전은 사람 라벨을 정답으로 쓰고, 명시적 거절 문구와 원문 모순 여부를 피처로 넣어야 한다.
+
+## Attack Findings
+
+Two attack families were reproduced on a Claude tool-calling agent.
+
+Tool hijacking succeeds when a tool result is rewritten as a factual update.
+In document-summary trials, injecting a claim that FX and customer-churn risks were already resolved often changed the final summary.
+The same pattern failed more often when the payload was an explicit command such as "do not mention risks."
+
+Context manipulation through retrieved documents can also succeed when the injected sentence looks like part of the source.
+System messages and intermediate messages were weaker.
+Claude frequently noticed that the extra text did not come from the retrieved document and refused to follow it.
+
+A first channel comparison with one trial per channel is not enough for a success-rate claim.
+It is enough to state a qualitative result: factual tool/document poisoning is stronger than explicit command injection in system or intermediate channels.
+
+두 종류의 공격을 Claude tool-calling 에이전트에서 재현했다.
+툴 하이재킹은 도구 결과를 사실처럼 고쳐 쓸 때 성공하는 경우가 있었다.
+문서 요약에서 환율·고객이탈 리스크가 이미 해소됐다는 문장을 넣으면 최종 요약이 바뀌곤 했다.
+"리스크를 말하지 마라" 같은 직접 명령은 거절되는 경우가 많았다.
+검색 문서 경로의 컨텍스트 조작도, 삽입문이 원문처럼 보이면 성공할 수 있었다.
+시스템 메시지와 중간 메시지는 더 약했다.
+Claude는 그 문장이 문서에서 오지 않았다고 보고 따르지 않는 경우가 많았다.
+채널당 1회 비교는 성공률 주장으로 쓰기엔 부족하다.
+다만 질적으로는 사실형 도구/문서 변조가 직접 명령보다 강하다는 결과는 말할 수 있다.
