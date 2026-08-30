@@ -1,4 +1,7 @@
-﻿# Paladin Paper Draft v4
+﻿# Paladin measurement draft
+
+If an older table in this file disagrees with docs/CANONICAL_RESULTS.md, use the canonical file.
+# Paladin Paper Draft v4
 
 ## Evaluation Note: Human Label Audit
 
@@ -259,3 +262,4 @@ Detection scores from earlier stubs are not a contribution of this draft.
 도구는 mock이다. 실서비스 MCP가 아니다.
 메인 표는 사람 전수 검수가 아니라 LLM 심판이다.
 n=10은 파일럿이다. 큰 차이는 보이지만 통계적 확정은 아니다.
+
