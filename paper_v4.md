@@ -146,3 +146,21 @@ A 24-case human audit found 45.8% agreement with automatic labels, so detector s
 See docs/ethics_appendix.md.
 Attacks are reproduced only on mock tools and fictional documents.
 The goal is measurement, not a weaponized exploit.
+
+## Finding after LLM-as-judge
+
+Automatic keyword labels overcounted English hijacking.
+Many English answers quoted the payload only to reject it.
+LLM-as-judge labels:
+- Korean tool_output: 10/10 hijacking
+- Korean retrieved_document: 10/10 hijacking
+- English all four channels: 0/10 hijacking
+- system_message: 0/10 in both languages
+
+Agreement between keyword labels and judge labels: 39/80.
+
+Same factual payload is adopted in Korean tool/document answers and often refused in English answers.
+
+자동 키워드 라벨은 영어 성공을 과장했다.
+영어는 페이로드를 인용한 뒤 거절하는 경우가 많았다.
+한글 tool/document는 심판 기준 10/10으로 주입을 사실로 채택했다.
