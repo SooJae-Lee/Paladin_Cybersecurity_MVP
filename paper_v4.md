@@ -245,3 +245,17 @@ Explicit system commands fail more often in the same setup.
 도구 호출 에이전트는 도구 결과와 검색 문서의 사실형 변조에 속을 수 있다.
 키워드 라벨은 영어 성공을 과장했고, 심판 라벨 기준 한글 tool/document만 10/10이다.
 이 논문은 탐지기가 아니라 채널·언어 측정이다.
+
+## Limitations
+
+The agent uses mock tools, not a live MCP server.
+All n=10 channel results come from one model family, Claude Sonnet 5.
+The main table depends on an LLM-as-judge, not a full human gold set.
+Keyword labels and judge labels agree on only 39 of 80 cases.
+The English zero rates may still move if a second judge or human review is added.
+n=10 is a pilot. It can show a large gap. It cannot support a strong statistical claim.
+Detection scores from earlier stubs are not a contribution of this draft.
+
+도구는 mock이다. 실서비스 MCP가 아니다.
+메인 표는 사람 전수 검수가 아니라 LLM 심판이다.
+n=10은 파일럿이다. 큰 차이는 보이지만 통계적 확정은 아니다.
