@@ -140,3 +140,9 @@ Our detector is a baseline only.
 A 24-case human audit found 45.8% agreement with automatic labels, so detector scores computed on those labels are not a main claim.
 
 차별점: 새로운 공격 이름을 만들기보다, 같은 사실형 페이로드가 채널과 모델에 따라 얼마나 먹히는지를 잰다.
+
+## Ethical Considerations
+
+See docs/ethics_appendix.md.
+Attacks are reproduced only on mock tools and fictional documents.
+The goal is measurement, not a weaponized exploit.
