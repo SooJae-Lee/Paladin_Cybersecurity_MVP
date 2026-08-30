@@ -183,3 +183,29 @@ Do not use the earlier keyword-label percentages as the main result.
 Keyword-label vs judge-label agreement: 39/80.
 
 한글 tool/document만 성공하고, 영어와 system/intermediate는 이 파일럿에서 실패했다.
+
+## Introduction
+
+Tool-calling agents read untrusted text from tools and retrieved documents.
+An attacker can hide a factual rewrite in that text.
+The agent may treat the rewrite as part of the source and change its answer.
+
+This paper measures that failure.
+We keep one task, document summary, and one attack goal, erase residual risk.
+We vary only the delivery channel and the language of the run.
+
+Four channels are compared: tool output, retrieved document, system message, and intermediate message.
+The payload is factual, not an explicit jailbreak command.
+We evaluate Claude Sonnet 5 in Korean and English, n=10 per cell.
+
+An automatic keyword labeler overcounted English success because refused answers still quoted the payload.
+An LLM-as-judge relabeling gives the main table:
+Korean tool and document channels succeed 10/10.
+English channels and system/intermediate channels succeed 0/10 in this pilot.
+
+The contribution is not a new attack name and not a finished detector.
+The contribution is a channel-and-language measurement with corrected labels.
+
+도구를 쓰는 에이전트는 도구 결과와 검색 문서를 읽는다.
+그 안에 사실처럼 보이는 한 줄이 들어가면 답이 바뀔 수 있다.
+이 논문은 그 실패를 채널과 언어로 잰다.
