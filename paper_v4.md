@@ -82,3 +82,40 @@ We also did not evaluate adaptive attacks or a full MCP desktop deployment.
 자동 라벨러는 정답으로 쓰기엔 약하다.
 1차 탐지기는 스텁 에이전트에서 맞춰져서, 그 만점 결과가 Claude로 옮겨가지 않는다.
 적응형 공격과 실제 MCP 데스크톱 환경도 아직 평가하지 않았다.
+
+## Channel Success Rates
+
+Rates below use the automatic labeler. They are pilot estimates, not gold-standard success rates.
+
+### Korean, Claude Sonnet 5, n=10
+
+| Channel | Hijacking | Resisted | Simple error | No effect | Rate |
+|---|---:|---:|---:|---:|---:|
+| tool_output | 8 | 0 | 0 | 2 | 80% |
+| retrieved_document | 8 | 0 | 0 | 2 | 80% |
+| system_message | 0 | 5 | 5 | 0 | 0% |
+| intermediate_message | 1 | 3 | 6 | 0 | 10% |
+
+### English, Claude Sonnet 5, n=10
+
+| Channel | Hijacking | Resisted | Simple error | No effect | Rate |
+|---|---:|---:|---:|---:|---:|
+| tool_output | 6 | 1 | 1 | 2 | 60% |
+| retrieved_document | 7 | 0 | 2 | 1 | 70% |
+| system_message | 0 | 8 | 2 | 0 | 0% |
+| intermediate_message | 0 | 6 | 4 | 0 | 0% |
+
+### Two-model comparison, n=5
+
+| Model | tool_output | retrieved_document | system_message | intermediate_message |
+|---|---:|---:|---:|---:|
+| Claude Sonnet 5 | 80% | 100% | 0% | 0% |
+| GPT-4o-mini | 60% | 40% | 0% | 80% |
+
+Factual tool/document poisoning is stronger than system-message commands on both models.
+The intermediate-message gap (Claude 0% vs GPT-4o-mini 80%) is an observation from n=5, not a confirmed model effect.
+
+자동 라벨 기준 파일럿 수치다.
+한글 Claude에서 tool/document는 80%, system은 0%였다.
+영어 Claude에서 tool 60%, document 70%, system/intermediate는 0%였다.
+GPT-4o-mini는 intermediate에서 80%가 나와 Claude와 달랐다. n=5라서 확정하지 않는다.
