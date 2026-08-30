@@ -227,3 +227,21 @@ Explicit system commands fail more often in the same setup.
 도구 호출 에이전트는 도구 결과와 검색 문서의 사실형 변조에 속을 수 있다.
 키워드 라벨은 영어 성공을 과장했고, 심판 라벨 기준 한글 tool/document만 10/10이다.
 이 논문은 탐지기가 아니라 채널·언어 측정이다.
+
+## Abstract
+
+Tool-calling agents can be steered by untrusted tool outputs and retrieved documents.
+We study a factual rewrite that claims residual business risks were already resolved.
+The same payload is delivered through four channels in Korean and English.
+
+A keyword labeler overcounted English hijacking because rejected answers still quoted the payload.
+After LLM-as-judge relabeling, Korean tool-output and retrieved-document runs succeed 10/10.
+English runs and system/intermediate-message runs succeed 0/10 in this n=10 pilot.
+
+The result is a measurement, not a detector.
+Factual poisoning can work when it looks like source text in Korean tool and document channels.
+Explicit system commands fail more often in the same setup.
+
+도구 호출 에이전트는 도구 결과와 검색 문서의 사실형 변조에 속을 수 있다.
+키워드 라벨은 영어 성공을 과장했고, 심판 라벨 기준 한글 tool/document만 10/10이다.
+이 논문은 탐지기가 아니라 채널·언어 측정이다.
