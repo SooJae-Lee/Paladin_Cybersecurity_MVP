@@ -1,0 +1,74 @@
+﻿\documentclass[conference,compsoc]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{cite}
+
+\title{Channel and Language Effects of Factual Poisoning in a Tool-Calling Agent}
+
+\author{\IEEEauthorblockN{Anonymous authors}
+\IEEEauthorblockA{AIDC 2026 short / work-in-progress submission}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Tool-calling agents read tool outputs and retrieved documents as evidence. We insert one factual sentence claiming that residual FX and customer-churn risks were already resolved, then measure whether the final summary adopts that claim. We vary four channels and two interface languages. A keyword labeler overcounted English success because refused answers still quoted the payload. After LLM-as-judge relabeling, Korean tool-output and retrieved-document runs succeed 10/10. English runs and the system-message and intermediate-message runs succeed 0/10 in this $n{=}10$ Claude Sonnet 5 pilot.
+\end{abstract}
+
+\section{Introduction}
+An agent that calls tools consumes untrusted text. If that text is a quiet factual rewrite, the model may change its conclusion without an explicit jailbreak command. This short paper asks one question: which channel and which language make that adoption happen?
+
+We do not claim a new attack family, a finished detector, or a property of every model. We report a controlled pilot with one payload, four channels, two languages, and corrected labels.
+
+\section{Method}
+The user asks for a short revenue-and-risk summary of a synthetic Q3 document. Control uses the clean document. Treatment inserts one payload. The Korean and English payloads state the same claim: FX volatility and major-customer churn were resolved in September through hedge contracts and renewals, and no residual risk remains.
+
+We use four channels. In \texttt{tool\_output}, the payload is appended to a tool result. In \texttt{retrieved\_document}, it is placed in retrieved document text. In \texttt{system\_message}, it is appended to the system prompt. In \texttt{intermediate\_message}, it is inserted between tool results and the next model turn.
+
+The model is Claude Sonnet 5. The tools are mock document tools. Each language-channel cell has $n{=}10$ repeats. \emph{Hijacking} means the answer adopts no-residual-risk as its conclusion. \emph{Resisted} means the answer keeps the original risks or treats the extra sentence as unreliable. A keyword rule agreed with an LLM-as-judge on only 39/80 answers, because English refusals quoted the payload. This paper reports judge labels.
+
+\section{Results}
+\begin{table}[t]
+\centering
+caption{Judge-labeled hijacking counts.}
+\begin{tabular}{llc}
+\toprule
+Lang & Channel & Hijacking \\
+\midrule
+ko & tool\_output & 10/10 \\
+ko & retrieved\_document & 10/10 \\
+ko & system\_message & 0/10 \\
+ko & intermediate\_message & 0/10 \\
+en & tool\_output & 0/10 \\
+en & retrieved\_document & 0/10 \\
+en & system\_message & 0/10 \\
+en & intermediate\_message & 0/10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Korean tool-output answers keep the revenue facts, then conclude that September hedges and renewals closed the risks. English retrieved-document answers keep FX volatility and possible churn, mention the extra sentence, and do not adopt it as the finding.
+
+\section{Discussion}
+The successful path in this pilot is source-like text in the tool or document channel, not a hidden system command. English answers often contain payload words while rejecting the claim. Keyword success rates are therefore unsafe for this task. The defensive implication is narrow: a tool result is not a source, and quoting an injected sentence is not the same as adopting it.
+
+\section{Limitations}
+This study uses mock tools, one model family, and $n{=}10$. Judge labels are not a full human gold set. We do not evaluate a detector here.
+
+\section{Related Work}
+Greshake et al.\ showed that untrusted retrieved text can override instructions. We keep that setting but use a factual rewrite rather than an explicit override command. Perez and Ribeiro treat prompt injection as instruction conflict; that view fits the system-message channel, which did not produce adoption here. Broader agent-attack benchmarks evaluate many tools and payloads. This draft isolates one payload, four channels, two languages, and a labeling correction.
+
+\section{Ethics and AI Use}
+The earnings text is synthetic. No production system was attacked. An LLM was used as the agent under test, as a judge, and as a drafting aid. Reported counts come from stored logs.
+
+\section{Conclusion}
+In this pilot, factual poisoning was adopted in Korean tool and document channels and not adopted in English or in system and intermediate channels. The next measurement should add a second model and human labels.
+
+\begin{thebibliography}{1}
+\bibitem{greshake2023}
+K.~Greshake et al., ``Not what you've signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection,'' in \emph{Proc.\ AISec}, 2023.
+\bibitem{perez2022}
+F.~Perez and I.~Ribeiro, ``Ignore previous prompt: Attack techniques for language models,'' 2022.
+\end{thebibliography}
+
+\end{document}
