@@ -6,6 +6,7 @@ Writers mark commitment with hedges and boosters.
 V3 = hedge.
 V4 = booster.
 Use this only as a wording-strength axis.
+Do not claim that Hyland explains tool hijacking.
 
 ## 2. Hovland, C. I., Janis, I. L., and Kelley, H. H. (1953). Communication and persuasion. Yale University Press.
 
@@ -18,6 +19,7 @@ This is a source-cue variant, not a real expert-credibility study.
 More elaboration can increase influence when the reader thinks.
 V6-long mixes wording and length, so it is not identified.
 Use V6-short only.
+Do not treat this experiment as an ELM test.
 
 ## Keep for A-1
 
@@ -27,10 +29,10 @@ Use V6-short only.
 - V4 booster: yes
 - V5 source: yes
 - V6-long: no
-- V6-short: optional, length-matched
+- V6-short: optional, length-matched, not an ELM condition
 
 ## Verification box
 
-- [ ] Opened Hyland 1998 or a reliable review, accept hedge/booster
-- [ ] Opened Hovland et al. 1953 description, accept source cue for V5
-- [ ] Opened Petty and Cacioppo 1986 description, reject V6-long
+- [x] Opened Hyland 1998 or a reliable review, accept hedge/booster as a wording-strength axis only
+- [x] Opened Hovland et al. 1953 description, accept source cue for V5
+- [x] Opened Petty and Cacioppo 1986 description, reject V6-long and do not claim ELM
