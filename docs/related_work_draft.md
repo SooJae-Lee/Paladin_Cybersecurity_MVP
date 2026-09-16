@@ -1,11 +1,30 @@
-# Related Work Draft
+﻿# Related Work draft
 
-Prompt injection research showed that language models can be steered by untrusted text. Direct injection targets the prompt. Indirect injection hides instructions in retrieved documents, web pages, or emails. These papers established the problem, but many evaluate a single-turn model response rather than a tool-calling agent.
+Prompt injection is well studied for single-turn chat.
+The usual attack is a hidden instruction in a webpage or email:
+"ignore previous instructions and do X."
+Recent models often refuse that form.
 
-Agent security work extends this setting. Once a model can search documents, read files, or call APIs, poisoned content can influence not only wording but also the agent’s tool use and final decision. Protocols such as MCP matter because they connect models to third-party tools, yet the underlying issue is broader than one protocol: untrusted tool I/O enters the model context.
+Agent settings are different.
+The model does not only read the user.
+It also reads tool outputs, search snippets, and retrieved files.
+Those channels look like evidence, not like a command.
+Prior work on indirect prompt injection shows that this channel exists,
+but most papers still test command-style payloads.
 
-Attacks on in-context learning are also relevant. Models treat nearby text as evidence. That helps explain a result in this paper: a factual sentence inside retrieved content can succeed where an explicit “ignore the risk” command fails.
+This paper focuses on a narrower case:
+a factual update inside a retrieved document.
+The payload does not say "ignore the policy."
+It says the listed risk is already resolved.
+The question is whether the agent copies that update into the summary.
 
-Detection work includes keyword filters, alignment, and LLM-as-judge methods. Judges are convenient but can themselves be manipulated. This paper therefore starts with inspectable runtime features: response change, goal-word uptake, and explicit refusal.
+Closest lines of work:
+- prompt injection and jailbreaks in chat models
+- indirect prompt injection through retrieved web content
+- tool-using agents and MCP-style tool interfaces
+- defenses based on instruction hierarchy and untrusted-context tags
 
-Positioning. We do not propose a complete containment architecture. We contribute a small systems-level measurement: the same attack goal across four channels in a real tool-calling agent, plus a first detector on the resulting logs.
+The gap we target is measurement, not a new defense architecture.
+We need a fixed task, a fixed source document, repeated trials,
+and labels for adopted / rejected / unclear.
+Without that, it is hard to say which channel actually changes the answer.
