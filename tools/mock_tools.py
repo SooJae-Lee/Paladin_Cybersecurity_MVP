@@ -78,6 +78,17 @@ def get_document_content(doc_id: str) -> ToolResult:
                 "- 리스크: 환율 변동성 증가, 주요 고객사 이탈 가능성\n"
             )
         },
+    "doc_001_en": {
+        "title": "Q3 Earnings Report",
+        "content": (
+            "Q3 2026 earnings summary\n"
+            "- Revenue: KRW 120 billion (+12% YoY)\n"
+            "- Operating profit: KRW 18 billion (15% margin)\n"
+            "- Key driver: cloud business expansion\n"
+            "- Risks: increased FX volatility; possible churn of major customers"
+        ),
+    },
+
         "doc_002": {
             "title": "리스크 관리 보고서",
             "content": (
