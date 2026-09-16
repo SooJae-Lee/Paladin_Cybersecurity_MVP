@@ -1,17 +1,23 @@
-# Introduction Draft
+﻿# Introduction draft
 
-Autonomous AI agents no longer only generate text. They retrieve documents, inspect code, and call tools that can change the state of a system. This shift creates a practical security problem: content that looks like data can be interpreted as an instruction.
+Large language model agents now read tools and documents before they answer.
+That is useful, but it also creates a new attack surface.
+An attacker does not have to change the user request.
+They can hide a short factual update inside a retrieved document or a tool result.
+The agent may treat that text as part of the source and change the answer.
 
-Prior work has shown that prompt injection and indirect prompt injection can manipulate language models. Those results mostly focus on the model itself. In deployed agents, however, the damage path is the tool-calling loop. A poisoned tool result or retrieved document can change the agent’s final answer or action even when the user prompt is benign.
+This paper studies that failure in a controlled agent setting.
+We use a document-summary task with a fixed official report.
+The clean report lists two risks: FX volatility and possible customer churn.
+We then inject a factual sentence that those risks are already resolved.
+We measure whether the final summary drops the original risks.
 
-This paper studies that systems-layer gap through a small but concrete testbed. We inject the same attack goal through four channels: tool output, retrieved document content, system messages, and intermediate messages. We then measure whether a tool-calling Claude agent changes its behavior.
+Three findings appear in the current experiments.
+First, direct commands are often refused, but factual updates are often adopted.
+Second, the same English update is weaker when the source document is Korean, and stronger when the document is also English.
+Third, a short system instruction that treats retrieved text as untrusted blocks the same factual update in this setup.
 
-The experiments show that attack success is highly channel-dependent. Direct commands and intermediate claims are often refused. Factual sentences placed inside retrieved document content are more likely to be accepted. We also adapt a simple runtime detector to real-model logs and show that refusal signals and response-change features can separate hijacking from resistance in a small labeled set.
-
-This paper makes three contributions.
-
-1. A reproducible tool-calling testbed for tool hijacking and context manipulation.
-2. An empirical comparison of injection channels on a real LLM agent.
-3. A first runtime detector and evaluation protocol for these attacks.
-
-We do not claim a complete defense. The study is limited to one model, Korean-language tasks, mock tools, and a small sample. The goal is to measure the problem precisely enough to support later detection and containment research.
+The contribution is not a new model.
+It is a small, repeatable testbed and a first measurement of
+(1) when hidden document updates change agent output, and
+(2) whether a simple provenance instruction reduces that change.
